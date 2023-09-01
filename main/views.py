@@ -26,3 +26,6 @@ def Home(request):
 
 def signin(request):
     return render(request,"signin.html")
+
+def create(request):
+    return render(request,'create.html')
