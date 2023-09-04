@@ -134,7 +134,7 @@ def create(request):
         else:
             return JsonResponse({"Message": "Error at Server"})
 
-
+#! This will get the note
 def get_note(request, title):
     user_data = request.user_data
 
