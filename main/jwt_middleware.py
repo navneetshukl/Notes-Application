@@ -1,7 +1,7 @@
-from django.shortcuts import redirect, render
 from django.urls import reverse
 import jwt,utils
-from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import redirect
+from django.http import JsonResponse
 from django.conf import settings
 
 class JWTMiddleware:
@@ -20,8 +20,8 @@ class JWTMiddleware:
                 # Attach the payload to the request for easy access in views
                 request.user_data = payload
             except jwt.ExpiredSignatureError:
-                redirect_url=reverse("signin")
-                return HttpResponseRedirect(redirect_url)
+                # Handle token expiration by redirecting to the sign-in route
+                return redirect(reverse("signin"))
             except jwt.DecodeError:
                 return JsonResponse({'error': 'Invalid token'}, status=401)
 

@@ -48,9 +48,9 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'main.jwt_middleware.JWTMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'main.jwt_middleware.JWTMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware'  
 ]
 
 ROOT_URLCONF = 'CRUD_API.urls'

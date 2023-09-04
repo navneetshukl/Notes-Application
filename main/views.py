@@ -35,7 +35,7 @@ def signup(request):
             payload = {
                 "name": name,
                 "email": email,
-                "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
+                #"exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
             }
             token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
 
@@ -52,17 +52,29 @@ def signup(request):
 
 def Home(request):
     user_data = request.user_data
+    context = {}  # Initialize an empty context dictionary
 
     if user_data:
         name = user_data.get("name")
         email = user_data.get("email")
-        print(f"Name {name} and Email is {email}")
-        context={
-            "name":name,
-            "email":email
-        }
+        db = utils.Connect_To_DB()
+        collection = db["notes"]
 
-    return render(request,"all.html",context)
+        # Use the `find` method to query notes based on the email field
+        notes = collection.find({"email": email})
+
+        # Convert the notes cursor to a list of dictionaries
+        notes_list = list(notes)
+
+        context = {
+            "name": name,
+            "email": email,
+            "notes": notes_list,  # Pass the list of notes to the context
+        }
+       # print(notes_list)
+
+    return render(request, "all.html", context)
+
 
 
 #! Signin Method using JWT
@@ -86,7 +98,7 @@ def signin(request):
                 payload = {
                     "name": user["name"],
                     "email": email,
-                    "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
+                    #"exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
                 }
                 token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
 
