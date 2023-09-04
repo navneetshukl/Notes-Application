@@ -55,7 +55,13 @@ def signup(request):
         
         
 def Home(request):
-    return render(request,"all.html")
+    user_data = request.user_data
+
+    if user_data:
+        name = user_data.get('name')
+        email = user_data.get('email')
+        
+    return JsonResponse({"name":name,"email":email})
 
 #! Signin Method using JWT
 @csrf_exempt
