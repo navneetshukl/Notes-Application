@@ -23,5 +23,6 @@ urlpatterns = [
     path("all/",views.Home, name="all"),
     path("signup/",views.signup, name="signup"),
     path("signin/",views.signin, name="signin"),
-    path("create/",views.create)
+    path("create/",views.create),
+    path('getnote/<str:title>/', views.get_note, name='getnote'),
 ]

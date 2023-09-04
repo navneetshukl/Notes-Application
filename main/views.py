@@ -1,6 +1,7 @@
 import datetime
 import hashlib
-from django.http import JsonResponse
+import json
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 import jwt, utils
@@ -35,7 +36,7 @@ def signup(request):
             payload = {
                 "name": name,
                 "email": email,
-                #"exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
+                # "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
             }
             token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
 
@@ -71,10 +72,9 @@ def Home(request):
             "email": email,
             "notes": notes_list,  # Pass the list of notes to the context
         }
-       # print(notes_list)
+    # print(notes_list)
 
     return render(request, "all.html", context)
-
 
 
 #! Signin Method using JWT
@@ -98,7 +98,7 @@ def signin(request):
                 payload = {
                     "name": user["name"],
                     "email": email,
-                    #"exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
+                    # "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
                 }
                 token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
 
@@ -114,26 +114,51 @@ def signin(request):
         else:
             return JsonResponse({"error": "User not found"}, status=400)
 
+
 #! Insert Notes in Database
 def create(request):
     if request.method == "GET":
         return render(request, "create.html")
     elif request.method == "POST":
-        user_data=request.user_data
-        
+        user_data = request.user_data
+
         if user_data:
             email = user_data["email"]
             title = request.POST.get("title")
             description = request.POST.get("description")
             db = utils.Connect_To_DB()
             collection = db["notes"]
-            data={
-                "email":email,
-                "title":title,
-                "description":description
-            }
+            data = {"email": email, "title": title, "description": description}
             collection.insert_one(data)
             return redirect("/create/")
         else:
-            return JsonResponse({"Message":"Error at Server"})
-        
+            return JsonResponse({"Message": "Error at Server"})
+
+
+def get_note(request, title):
+    user_data = request.user_data
+
+    if user_data:
+        email = user_data["email"]
+        db = utils.Connect_To_DB()
+        collection = db["notes"]
+        note = collection.find_one({"email": email, "title": title})
+
+        if note:
+            note_title = note.get("title", "")
+            note_description = note.get("description", "")
+            print("Title:", note_title)
+            print("Description:", note_description)
+            
+            context={
+                "title":note_title,
+                "description":note_description
+            }
+            
+            return render(request, "getnote.html",context)
+        else:
+            print("Note not found")
+            
+            
+   # return JsonResponse({"title":note_title,"description":note_description})
+            
