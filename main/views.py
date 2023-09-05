@@ -130,9 +130,10 @@ def create(request):
             collection = db["notes"]
             data = {"email": email, "title": title, "description": description}
             collection.insert_one(data)
-            return redirect("/create/")
+            return redirect("/all/")
         else:
             return JsonResponse({"Message": "Error at Server"})
+
 
 #! This will get the note
 def get_note(request, title):
@@ -149,16 +150,37 @@ def get_note(request, title):
             note_description = note.get("description", "")
             print("Title:", note_title)
             print("Description:", note_description)
-            
-            context={
-                "title":note_title,
-                "description":note_description
-            }
-            
-            return render(request, "getnote.html",context)
+
+            context = {"title": note_title, "description": note_description}
+
+            return render(request, "getnote.html", context)
         else:
             print("Note not found")
-            
-            
-   # return JsonResponse({"title":note_title,"description":note_description})
-            
+
+
+#! This function will edit the note
+def edit(request, title):
+    user_data = request.user_data
+
+    if user_data:
+        email = user_data["email"]
+        db = utils.Connect_To_DB()
+        collection = db["notes"]
+        note = collection.find_one({"email": email, "title": title})
+        if note:
+            note_title = note.get("title", "")
+            note_description = note.get("description", "")
+            print("Title:", note_title)
+            print("Description:", note_description)
+
+            context = {"title": note_title, "description": note_description}
+            collection.delete_one({"email": email, "title": title})
+            return render(request, "edit.html", context)
+
+
+def delete(request,title):
+    
+    user_data=request.user_data
+    if user_data:
+        pass
+    
