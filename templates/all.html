@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <style>
+    .navbar {
+      background-color: black;
+    }
+    .navbar-brand {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .centered-heading {
+      text-align: center;
+      font-size: 2em;
+      margin-top: 2em;
+    }
+    /* Add custom styles for the Name and Email sections */
+    .name-email-section {
+      margin-top: 2em;
+      padding: 1em;
+      background-color: #f5f5f5;
+      border-radius: 5px;
+    }
+  </style>
+  <title>All Notes</title>
+</head>
+<body>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <div class="navbar-item">
+            <h1 class="title has-text-white">Notes</h1>
+        </div>
+        <div class="navbar-end"> <!-- Use navbar-end for right-aligned items -->
+            <a class="navbar-item has-text-white" href="/create/" style="margin-right: 10px;"> <!-- Add some margin to separate the links -->
+                Add Notes
+            </a>
+            <a class="navbar-item has-text-white ml-auto" href="/all/"> <!-- Use ml-auto to push it to the right -->
+                All Notes
+            </a>
+        </div>
+    </div>
+</nav>
+
+  <section class="section">
+    <div class="container">
+      <!-- Beautify Name and Email sections -->
+      <div class="name-email-section">
+        <p class="title is-4">Name: {{ name }}</p>
+        <br>
+        <p class="title is-4">Email: {{ email }}</p>
+      </div>
+
+      <table class="table is-bordered is-fullwidth">
+        <thead>
+          <tr>
+            <th style="width: 60%;">Title</th>
+            <th style="width: 20%;">Edit</th>
+            <th style="width: 20%;">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for note in notes  %}
+          
+         
+          <tr>
+            <td><a href="{% url 'getnote' note.title %}">{{ note.title }}</a></td>
+            <td><button class="button is-info" onclick="window.location.href='{% url 'edit' note.title %}'">Edit</button></td>
+            <td><button class="button is-danger" onclick="window.location.href='{% url 'delete' note.title %}'">Delete</button></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</body>
+</html>

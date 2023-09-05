@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <title>Create Note</title>
+  <style>
+    .navbar {
+        background-color: black;
+      }
+      .navbar-brand {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .centered-heading {
+        text-align: center;
+        font-size: 2em;
+        margin-top: 2em;
+      }
+  </style>
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <div class="navbar-item">
+                <h1 class="title has-text-white">Notes</h1>
+            </div>
+            <div class="navbar-end"> <!-- Use navbar-end for right-aligned items -->
+                <a class="navbar-item has-text-white" href="/create/" style="margin-right: 10px;"> <!-- Add some margin to separate the links -->
+                    Add Notes
+                </a>
+                <a class="navbar-item has-text-white ml-auto" href="/all/"> <!-- Use ml-auto to push it to the right -->
+                    All Notes
+                </a>
+            </div>
+        </div>
+    </nav>
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <div class="box">
+            <h1 class="title is-4 has-text-centered">Create a New Entry</h1>
+            <form method="post" action="/create/">
+                {% csrf_token %}
+              <div class="field">
+                <label class="label">Title</label>
+                <div class="control">
+                  <input class="input" type="text" placeholder="Enter title" name="title">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Description</label>
+                <div class="control">
+                  <textarea class="textarea" placeholder="Enter description" name="description"></textarea>
+                </div>
+              </div>
+              <div class="field is-grouped is-grouped-centered">
+                <div class="control">
+                  <button class="button is-primary">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

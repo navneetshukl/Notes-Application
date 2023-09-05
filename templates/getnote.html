@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Notes</title>
+    <!-- Include Bulma CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    
+    <style>
+        /* Inline CSS */
+        /* Set the description container's height to 100vh (full viewport height) */
+        .description-container {
+            height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Style for the navbar */
+        .navbar {
+            background-color: black;
+          }
+          .navbar-brand {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+          .centered-heading {
+            text-align: center;
+            font-size: 2em;
+            margin-top: 2em;
+          }
+    </style>
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <div class="navbar-item">
+                <h1 class="title has-text-white">Notes</h1>
+            </div>
+            <div class="navbar-end"> <!-- Use navbar-end for right-aligned items -->
+                <a class="navbar-item has-text-white" href="/create/" style="margin-right: 10px;"> <!-- Add some margin to separate the links -->
+                    Add Notes
+                </a>
+                <a class="navbar-item has-text-white ml-auto" href="/all/"> <!-- Use ml-auto to push it to the right -->
+                    All Notes
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    
+    
+
+    <section class="hero is-fullheight is-bold">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="box has-background-primary has-text-white">
+                    <div class="title-container has-text-centered">
+                        <h1 class="title">{{ title }}</h1>
+                    </div>
+                    <div class="description-container">
+                        <p class="subtitle">{{ description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

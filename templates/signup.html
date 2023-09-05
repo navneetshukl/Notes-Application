@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <title>Register</title>
+  <style>
+    /* Custom CSS for the "Sign In" section */
+    .signin-section {
+      margin-top: 1em;
+      text-align: center;
+    }
+    .signin-text {
+      font-size: 1.2em;
+      margin-right: 0.5em;
+    }
+    .signin-button {
+      background-color: #ff5722;
+      color: #fff;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-one-third">
+          <h1 class="title has-text-centered">Register</h1>
+          <form action="/signup/" method="post">
+            {% csrf_token %}
+            <div class="field">
+              <label class="label">Name</label>
+              <div class="control">
+                <input class="input" type="text" placeholder="Your Name" name="name">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Email</label>
+              <div class="control">
+                <input class="input" type="email" placeholder="Your Email" name="email">
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control">
+                <input class="input" type="password" placeholder="Your Password" name="password">
+              </div>
+            </div>
+
+            <div class="field is-grouped is-grouped-centered">
+              <div class="control">
+                <button class="button is-primary is-text">Register</button>
+              </div>
+            </div>
+
+            <!-- Enhanced "Sign In" section -->
+            <div class="signin-section">
+              <span class="signin-text">Already have an account?</span>
+              <a class="button is-link is-inverted signin-button" href="/signin/">Sign In</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
