@@ -44,13 +44,13 @@ def signup(request):
             response = JsonResponse({"message": "User Registered Successfully"})
             response.set_cookie("jwt_token", token)
 
-            return response
+            return redirect("/signin/")
         else:
             return JsonResponse({"error": "Email already exists"}, status=400)
     else:
         return JsonResponse({"error": "Method not allowed"}, status=405)
 
-
+#! This will list all the notes of user
 def Home(request):
     user_data = request.user_data
     context = {}  # Initialize an empty context dictionary
@@ -108,7 +108,7 @@ def signin(request):
                 )
                 response.set_cookie("jwt_token", token)
 
-                return response
+                return redirect("/all/")
             else:
                 return JsonResponse({"error": "Invalid credentials"}, status=400)
         else:
