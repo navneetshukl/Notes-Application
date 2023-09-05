@@ -182,5 +182,9 @@ def delete(request,title):
     
     user_data=request.user_data
     if user_data:
-        pass
+        email=user_data["email"]
+        db=utils.Connect_To_DB()
+        collection=db["notes"]
+        collection.delete_one({"title":title,"email":email})
+        return redirect("/all/")
     

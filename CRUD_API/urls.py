@@ -25,5 +25,6 @@ urlpatterns = [
     path("signin/",views.signin, name="signin"),
     path("create/",views.create),
     path('getnote/<str:title>/', views.get_note, name='getnote'),
-    path('edit/<str:title>/',views.edit,name="edit")
+    path('edit/<str:title>/',views.edit,name="edit"),
+    path('delete/<str:title>/',views.delete,name="delete")
 ]
